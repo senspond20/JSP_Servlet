@@ -15,10 +15,7 @@ public class Member {
 	private Date modifyDate;
 	private String status;
 	
-	public Member() {
-		
-	}
-	
+	public Member() {}
 	public Member(String userId, String userPwd) {
 		super();
 		this.userId = userId;

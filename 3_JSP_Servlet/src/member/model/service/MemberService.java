@@ -32,4 +32,19 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public int idCheck(String userId) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().idCheck(conn,userId);
+		close(conn);
+		return result;
+	}
+
+	public Member selectMember(String loginUserId) {
+		Connection conn = getConnection();
+		
+		Member member = new MemberDAO().selectMember(conn, loginUserId);
+		close(conn);
+		return member;
+	}
 }
