@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>1_Servlet</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+
+
+<!-- servlet에 대한 정보를 넣어주는곳 -->
+<servlet>
+	<servlet-name>TestServlet1</servlet-name>
+	<servlet-class>com.kh.servlet.TestServlet1</servlet-class>
+</servlet>
+
+<!-- url이 들어왔을때 어떤 servlet 과 mapping을 할지에 대한 정보  -->
+<servlet-mapping>
+	<servlet-name>TestServlet1</servlet-name>
+	<url-pattern>/testServlet1.do</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>TestServlet2</servlet-name>
+	<servlet-class>com.kh.servlet.TestServlet2</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>TestServlet2</servlet-name>
+	<url-pattern>/testServlet2.do</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>TestServlet3</servlet-name>
+	<servlet-class>com.kh.servlet.TestServlet3</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>TestServlet3</servlet-name>
+	<url-pattern>/testServlet3.do</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>TestServlet4</servlet-name>
+	<servlet-class>com.kh.servlet.TestServlet4</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>TestServlet4</servlet-name>
+	<url-pattern>/testServlet4.do</url-pattern>
+</servlet-mapping>
+
+</web-app>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

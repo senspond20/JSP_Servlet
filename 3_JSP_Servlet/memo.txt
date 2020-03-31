@@ -1,0 +1,39 @@
+
+에러 
+
+400 -> 400, 404 Browser Error
+400 : url Erro
+404: PageNotFoundError : Controller(path), view(href, action..)
+
+500 -> 500 Logic Error
+	: SQLException : DataBase(DAO, xxx-query, driver)
+	
+Server Error  --> Eclipse Console
+
+Browser E(X), E Console(X) , E Console(X) -- Development Tool(F12) Console
+
+----------------------------------------------------------------------------
+
+getParameter
+getAttribute
+setAttribute
+
+1) View -> Servlet
+2) View -> View
+3) Servlet -> Servlet
+4) Servlet -> view
+
+< Parameter VS Attribute>
+1,2				3,4
+시작점이 View     시작점이 Servlet
+
+
+
+
+
+
+
+
+
+
+
