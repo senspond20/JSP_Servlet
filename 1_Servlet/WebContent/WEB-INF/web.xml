@@ -11,6 +11,8 @@
   </welcome-file-list>
 
 
+<!-- servlet 매핑 (web.xml파일을 이용한 방법) -->
+
 <!-- servlet에 대한 정보를 넣어주는곳 -->
 <servlet>
 	<servlet-name>TestServlet1</servlet-name>
@@ -22,6 +24,8 @@
 	<servlet-name>TestServlet1</servlet-name>
 	<url-pattern>/testServlet1.do</url-pattern>
 </servlet-mapping>
+
+
 
 <servlet>
 	<servlet-name>TestServlet2</servlet-name>

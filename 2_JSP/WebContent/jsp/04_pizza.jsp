@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" import="java.util.Date"%>
+	pageEncoding="EUC-KR" import="java.util.Date"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,9 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>오늘은 <span style="color:pink;"><%@ include file="today.jsp"%></span>입니다.</h2>
+	<h2>
+		오늘은 <span style="color: pink;"><%@ include file="today.jsp"%></span>입니다.
+	</h2>
 	<h2>피자 아카데미</h2>
-	
+
 	<table border="1";>
 		<tr>
 			<th>종류</th>
@@ -21,7 +23,7 @@
 			<th>가격</th>
 		</tr>
 		<tr>
-			<td rowspan ="5">피자</td>
+			<td rowspan="5">피자</td>
 			<td>치즈피자</td>
 			<td>5000</td>
 			<td rowspan="11">사이드</td>
@@ -90,37 +92,40 @@
 			<td>100</td>
 		</tr>
 	</table>
-	<br><br>
-	<form action="/2_JSP/pizzaServlet.do">
-	피자: <select>
-		<option value="치즈피자" selected>치즈피자</option>
-		<option value="콤비네이션 피자">콤비네이션 피자</option>
-		<option value="포테이토피자">포테이토피자</option>
-		<option value="고구마피자">고구마피자</option>
-		<option value="불고기피자">불고기피자</option>
-	</select><br>
-	토핑 : 
-	<input type="checkbox" name="topping" id="sp" value="고구마무스"><label>고구마무스</label>
-	<input type="checkbox" name="topping" id="corn" value="콘크림무스"><label>콘크림무스</label>
-	<input type="checkbox" name="topping" id="pine" value="파인애플토핑"><label>파인애플토핑</label>
-	<input type="checkbox" name="topping" id="cheezetop" value="치즈토핑"><label>치즈토핑</label>
-	<input type="checkbox" name="topping" id="cheezecro" value="치즈크러스트"><label>치즈크러스트</label>
-	<input type="checkbox" name="topping" id="cheezebite"><label>치즈바이트</label>
 	<br>
-	사이드 : 
-	<input type="checkbox" name="side" id="s1" value="오븐구이통닭"><label>오븐구이 통닭</label>
-	<input type="checkbox" name="side" id="s2" value="치즈스틱&윙"><label>치즈스틱&윙</label>
-	<input type="checkbox" name="side" id="s3" value="치즈스파게티"><label>치즈스파게티</label>
-	<input type="checkbox" name="side" id="s4" value="새우링&웨지감자"><label>새우링&웨지감자</label>
-	<input type="checkbox" name="side" id="s5" value="갈릭포테이토"><label>갈릭포테이토</label>
-	<input type="checkbox" name="side" id="s6" value="콜라"><label>콜라</label>
-	<input type="checkbox" name="side" id="s7" value="사이다"><label>사이다</label>
-	<input type="checkbox" name="side" id="s8" value="갈릭소스"><label>갈릭소스</label>
-	<input type="checkbox" name="side" id="s9" value="피클"><label>피클</label>
-	<input type="checkbox" name="side" id="s10" value="핫소스"><label>핫소스</label>
-	<input type="checkbox" name="side" id="s11" value="파마산 치즈가루"><label>파마산 치즈가루</label>
-	<br><br>
-	<input type="submit" name="btnOk" id="btnOk" value="확인">
+	<br>
+	<form action="/2_JSP/pizzaServlet.do" method ="post">
+		피자: <select>
+			<option value="치즈피자" selected>치즈피자</option>
+			<option value="콤비네이션 피자">콤비네이션 피자</option>
+			<option value="포테이토피자">포테이토피자</option>
+			<option value="고구마피자">고구마피자</option>
+			<option value="불고기피자">불고기피자</option>
+		</select><br> 토핑 : 
+		
+		<input type="checkbox" name="topping" id="sp" value="고구마무스"><label>고구마무스</label> 
+		<input type="checkbox" name="topping" id="corn" value="콘크림무스"><label>콘크림무스</label> 
+		<input type="checkbox" name="topping" id="pine" value="파인애플토핑"><label>파인애플토핑</label>
+		<input type="checkbox" name="topping" id="cheezetop" value="치즈토핑"><label>치즈토핑</label>
+		<input type="checkbox" name="topping" id="cheezecro" value="치즈크러스트"><label>치즈크러스트</label>
+		<input type="checkbox" name="topping" id="cheezebite"><label>치즈바이트</label>
+		
+		<br> 사이드 : <input type="checkbox" name="side" id="s1"
+			value="오븐구이통닭"><label>오븐구이 통닭</label> <input type="checkbox"
+			name="side" id="s2" value="치즈스틱&윙"><label>치즈스틱&윙</label> <input
+			type="checkbox" name="side" id="s3" value="치즈스파게티"><label>치즈스파게티</label>
+		<input type="checkbox" name="side" id="s4" value="새우링&웨지감자"><label>새우링&웨지감자</label>
+		<input type="checkbox" name="side" id="s5" value="갈릭포테이토"><label>갈릭포테이토</label>
+		<input type="checkbox" name="side" id="s6" value="콜라"><label>콜라</label>
+		<input type="checkbox" name="side" id="s7" value="사이다"><label>사이다</label>
+		<input type="checkbox" name="side" id="s8" value="갈릭소스"><label>갈릭소스</label>
+		<input type="checkbox" name="side" id="s9" value="피클"><label>피클</label>
+		<input type="checkbox" name="side" id="s10" value="핫소스"><label>핫소스</label>
+		<input type="checkbox" name="side" id="s11" value="파마산 치즈가루"><label>파마산
+			치즈가루</label> <br>
+		<br> <input type="submit" name="btnOk" id="btnOk" value="확인">
+
 	</form>
+
 </body>
 </html>

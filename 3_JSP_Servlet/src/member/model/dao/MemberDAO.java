@@ -78,8 +78,6 @@ public class MemberDAO {
 		}
 		
 		return loginUser;
-		
-		
 	}
 
 	public int insertMember(Connection conn, Member member) {
@@ -165,5 +163,30 @@ public class MemberDAO {
 		}
 		
 		return member;
+	}
+
+	public int updateMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateMember");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, member.getUserName());
+			pstmt.setString(2, member.getNickName());
+			pstmt.setString(3, member.getPhone());
+			pstmt.setString(4, member.getEmail());
+			pstmt.setString(5, member.getAddress());
+			pstmt.setString(6, member.getInterest());
+			pstmt.setString(7, member.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
