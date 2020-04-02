@@ -14,7 +14,7 @@
 <style>
 	body{ 
 		background:url("<%= request.getContextPath() %>/images/bg.png") no-repeat center center fixed;
-						/* ContextPath를 굳이 적을 필요 없이 어떤 이름이든지 이렇게 쓰면 contextPath가 나옴 */ 
+					/* ContextPath를 굳이 적을 필요 없이 어떤 이름이든지 이렇게 쓰면 contextPath가 나옴 */ 
 		background-size: cover;
 	}
 	#loginBtn input, #memberJoinBtn{
@@ -29,11 +29,19 @@
 		color: white; height: 25px; width: 100px; border-radius: 15px;
 	}
 	#myPageBtn{background: #B2CCFF;} 
+	
+	.wrap{background:white; width: 100%; height: 50px;}
+	.menu{background:white; color: navy; text-align: center; font-weight: bold;
+		  vertical-align: middle; width: 150px; height: 50px; display:table-cell;
+	}
+	nav{width: 600px; margin-left: auto; margin-right: auto;}
+	.menu:hover{background: beige; color: orangered; font-weight: bold; cursor: pointer;}
 </style>
 </head>
 <body>
 	<h1 align="center">Welcome to JSP&Servlet World!</h1>
 	<div class="loginArea">
+	
 	<% if(loginUser == null) { %>
 		<form id="loginForm" action="<%= request.getContextPath() %>/login.me" method="post" onsubmit ="return validate();">
 			<table>
@@ -69,6 +77,21 @@
 	<% } %>	
 	</div>
 	
+	<br clear ="all">
+	<br>
+	
+	<div class ="wrap">
+		<nav>
+			<div class ="menu" onclick="goHome();">HOME</div>
+			<div class ="menu" onclick="goNotice();">공지사항</div>
+			<div class ="menu" onclick="goBoard();">게시판</div>
+			<div class ="menu" onclick="goThumbnail();">사진게시판</div>		
+		</nav>	
+	</div>
+	
+	
+
+	
 	<!-- 유효성 검사 -->
 	<script>
 		function validate(){
@@ -100,9 +123,28 @@
 			}
 		});
 		
+		
+		/* Notice */
 		function myPage(){
 			location.href = '<%= request.getContextPath() %>/myPage.me';
 		}
+		
+		function goHome(){
+			location.href ="<%= request.getContextPath() %>/index.jsp";
+		}
+		
+		function goNotice(){
+			location.href ="<%= request.getContextPath() %>/list.no";
+		}
+		
+		function goBoard(){
+			location.href ="<%= request.getContextPath() %>/list.bo";
+		}
+		
+		function goThumbnail(){
+			location.href ="<%= request.getContextPath() %>/list.th";
+		}
+		
 	</script>
 	
 </body>
