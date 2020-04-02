@@ -43,7 +43,8 @@
 					</tr>
 					<tr>
 						<td colspan="4">
-							<textarea rows="15" cols ="60" name ="content" sytle="resize: none;"><% request.getParameter("content") %></textarea>
+						
+							<textarea rows="15" cols ="60" name ="content" style="resize:none;"><% request.getParameter("content"); %></textarea>
 						</td>
 					</tr>
 				</table>

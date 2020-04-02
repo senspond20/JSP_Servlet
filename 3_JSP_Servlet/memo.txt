@@ -30,6 +30,13 @@ setAttribute
 
 
 
+/*
+	1. Notice 조회수
+	2. Board Insert
+	3. Board
+
+
+*/
 
 
 

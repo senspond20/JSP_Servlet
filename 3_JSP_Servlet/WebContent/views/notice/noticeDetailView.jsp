@@ -66,9 +66,11 @@
 				<div align="center">
 				<% if(loginUser != null && loginUser.getUserId().equals("admin")){ %>
 					<button type="submit" id="updateNoBtn">수정</button>
-					<button type ="delete" id="deleteNoBtn">삭제</button>
+					<button type ="button" id="deleteNoBtn" onclick ="deleteNo();">삭제</button>
 				<% } %>
-					<div onclick="location.href='javascript:history.go(-1);'" id="cancelBtn">취소</div>
+					<!-- <div onclick="location.href='javascript:history.go(-1);'" id="cancelBtn">취소</div>-->
+					
+					<div onclick="cancel();" id="cancelBtn">취소</div>
 				</div>
 			</form>
 		</div>
@@ -79,7 +81,10 @@
 			if(bool){
 				location.href="<%= request.getContextPath()%>/delete.no?=no" + <%= nView.getnNo() %>;
 			}
-			
+		}
+		// 취소하면서 공지사항 페이지로 돌아가고 조회수가 갱신되어야하므로 
+		function cancel(){
+			location.href = "<%= request.getContextPath()%>/list.no";
 		}
 	
 	</script>

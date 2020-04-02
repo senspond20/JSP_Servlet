@@ -102,7 +102,7 @@ th {
 	<script type="text/javascript">
       $(function(){
          $('#listArea td').mouseenter(function(){
-            $(this).parent().css({'background' : 'darkgray', 'cusor' : 'pointer'})
+            $(this).parent().css({'background' : 'darkgray', 'cursor' : 'pointer'})
          }).mouseout(function(){
             $(this).parent().css({'background' : 'none'})
          }).click(function(){
