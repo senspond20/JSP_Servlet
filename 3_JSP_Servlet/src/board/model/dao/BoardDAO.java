@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import board.model.vo.Attachment;
 import board.model.vo.Board;
 
 public class BoardDAO {
@@ -159,9 +160,11 @@ public class BoardDAO {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		} 
+		
+		/*finally {
 			close(conn);
-		}
+		}* 여기서 닫아버리면 두번쨰 selectBoard 서비스를 못한다. */
 		
 		return result;
 	}
@@ -201,6 +204,154 @@ public class BoardDAO {
 		
 		return board;
 	}
-	
 
+	public ArrayList selectBList(Connection conn) {
+		//쿼리 : select * from board where btype=2
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		String query = prop.getProperty("selectBList");
+			
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				list.add(new Board(rset.getInt("bid"),
+								   rset.getInt("btype"),
+								   rset.getString("cname"),
+								   rset.getString("btitle"),
+								   rset.getString("bcontent"),
+								   rset.getString("nickname"),
+								   rset.getInt("bcount"),
+								   rset.getDate("create_date"),
+								   rset.getDate("modify_date"),
+								   rset.getString("status")
+								   ));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList selectFList(Connection conn) {
+		// select * from attachment where file_level=0 and status ='Y'
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> list = null;
+	
+		String query = prop.getProperty("selectFList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<Attachment>();
+			
+			while(rset.next()) {
+				list.add(new Attachment(rset.getInt("bid"), rset.getString("change_name")));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
+		// 쿼리
+		// insert into attachment values(seq_fid.nextval, seq_bid.currval, ?,?,?,sysdate,?,default,default)
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAttachment");
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				Attachment at = fileList.get(i);
+				
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				pstmt.setInt(4, at.getFileLevel());
+				
+				result += pstmt.executeUpdate();
+			}
+			pstmt = conn.prepareStatement(query);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public int inserThBoard(Connection conn, Board b) {
+		// insert into board values(seq_bid.nexval,2,10,?,?,?,default,sysdate,sysdate,default)
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertThBoard");
+	
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, b.getbTitle());
+			pstmt.setString(2, b.getbContent());
+			pstmt.setString(3, b.getbWriter());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Attachment> selectThumbnail(Connection conn, int bid) {
+		// select * from attachment where bid = ? and status ='Y' order by fid
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> list = null;
+		
+		String query = prop.getProperty("selectThumnail");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Attachment>();
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				at.setfId(rset.getInt("fid"));
+				at.setOriginName(rset.getString("origin_name"));
+				at.setChangeName(rset.getString("change_name"));
+				at.setFilePath(rset.getString("file_path"));
+				at.setUploadDate(rset.getDate("upload_date"));
+				
+				list.add(at);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="board.model.vo.Board"%>
+    
+<% Board board = (Board) request.getAttribute("board"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,34 +32,54 @@
 				<table>
 					<tr>
 						<th>분야</th>
-						<td></td>
+						<td><%=board.getCategory() %>
+							<input type ="hidden" name ="category" value="<%=board.getCategory() %>">
+						</td>
 						<th>제목</th>
-						<td colspan="3"></td>
+						<td colspan="3">
+						<%=board.getbTitle() %>
+							<input type ="hidden" name = "bno" value="<%=board.getbId() %>">
+							<input type ="hidden" name = "title" value="<%=board.getbTitle()%>">
+						</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td></td>
+						<td><%=board.getbWriter() %></td>
 						<th>조회수</th>
-						<td></td>
+						<td><%=board.getbCount() %></td>
 						<th>작성일</th>
-						<td></td>
+						<td><%=board.getCreateDate() %></td>
 					</tr>
 					<tr>
 						<th>내용</th>
 					</tr>
 					<tr>
 						<td colspan="6">
-							<textarea cols="60" rows="15" style="resize:none;" readonly></textarea>
+							<textarea cols="60" rows="15" style="resize:none;" readonly><%=board.getbContent() %></textarea>
 						</td>
 					</tr>
 				</table>
 				
 				<div align="center">
-					<input type="submit" id="updateBtn" value="수정">
+					<input type="submit" onclick="updateBoard();" id="updateBtn" value="수정">
 					<input type="submit" onclick="deleteBoard();" id="deleteBtn" value="삭제">
 					<div onclick="location.href='<%= request.getContextPath() %>/list.bo'" id="menuBtn" >메뉴로</div>
 				</div>
 			</form>
+			
+			<script>
+				function updateBoard(){
+					alert("hi");
+				}
+				function deleteBoard(){
+					var bool = confirm('정말 삭제하시겠습니까?');
+					if(bool){
+						$('#detailForm').attr('action','<%=request.getContextPath() %>/delete.bo')
+						$('#detailForm').submit();
+					}
+				}
+			
+			</script>	
 		</div>
 	</div>
 </body>

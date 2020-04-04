@@ -35,9 +35,13 @@ public class BoardDetailServlet extends HttpServlet {
 		
 		Board board = new BoardService().selectBoard(bid);
 		String page = null;
+		
+		page = "views/board/boardDetailView.jsp";
+		request.setAttribute("board", board);
+		
+	//	System.out.println(board);
 		if(board != null) {
-			page = "views/board/boardDetailView.jsp";
-			request.setAttribute("board", board);
+			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시글 상세조회에 실패하였습니다.");
