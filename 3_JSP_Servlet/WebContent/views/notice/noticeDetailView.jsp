@@ -34,12 +34,12 @@
 						<th>제목</th>
 						
 						<td colspan="3">
-						
+						<%= nView.getnTitle() %>
 						<input type="hidden" size="50" name="title" value="<%= nView.getnTitle() %>"></td>				
 						<input type="hidden" size="50" name="no" value="<%= nView.getnNo() %>"></td>				
 						<!--  noticeUpdateForm으로 보낼 때 공지사항 번호를 같이 보내야 다시 servlet으로 공지사항 번호를 보낼 수 있으므로  
 							 hidden에 같이 넣어둠-->
-						<%= nView.getnTitle() %>
+						</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
@@ -47,8 +47,8 @@
 						<%= nView.getnWriter() %>
 						</td>
 						<th>작성일</th>
-						
-						<td><input type="hidden" name="date" value = "<%= nView.getnDate() %>"></td>
+						<td><%= nView.getnDate() %>
+						<input type="hidden" name="date" value = "<%= nView.getnDate() %>"></td>
 					</tr>
 					<tr>
 						<th>내용</th>

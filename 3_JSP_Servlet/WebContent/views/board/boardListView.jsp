@@ -65,7 +65,7 @@
                <td><%= b.getCategory() %></td>
                <td><%= b.getbTitle() %></td>
                <td><%= b.getbWriter() %></td>
-               <td><%= b.getbContent() %></td>
+               <td><%= b.getbCount() %></td>
                <td><%= b.getCreateDate() %></td>
             </tr>
          <%

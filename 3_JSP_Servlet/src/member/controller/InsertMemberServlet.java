@@ -15,7 +15,10 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class InsertMemberServlet
  */
-@WebServlet("/insert.me")
+@WebServlet(urlPatterns = "/insert.me", name = "InsertMemberServlet")
+
+//한개만 들어갔을떄는 자동으로 urlPatterns으로 매칭이 @WebServlet("/insert.me") 되지만,
+//두개이상 들어갔을떄는 반드시 명시
 public class InsertMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

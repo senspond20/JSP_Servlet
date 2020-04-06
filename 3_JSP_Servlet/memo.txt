@@ -38,6 +38,21 @@ setAttribute
 
 */
 
+Servlet Filter & Wrapper
+
+Filter Interface
+init(FilterConfig config)
+
+doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+
+HttpServletResponseWrapper
+	 요청한 정보를 변경하는 Wrapper클래스
+
+서블릿 필터와 래퍼 클래스를 사용해 다음과 같은 로직 구현 가능
+1. 서비스 별 로그 기록
+2. 이미지 변환 필터
+3. 문자셋 변환 필터
+4. 
 
 
 
