@@ -119,6 +119,244 @@ body {
 		});
 	</script>
 	
+		<br>
+	
+	<h3>5. 서버로 기본형 데이터 전송, 서버에서 객체 반환</h3>
+	<h4>유저 번호 보내서 해당 유저 정보 가져오기</h4>
+	유저 번호 : <input type="text" id="userNo"><br>
+	<button id="getUserInfoBtn">정보 가져오기</button>
+	<p class="test" id="p3"></p>
+	<textarea class="text" id="textarea3" cols=40 rows=5></textarea>
+	<script>
+		$('#getUserInfoBtn').click(function(){
+			var userNo = $('#userNo').val();
+			
+			$.ajax({
+				url:'jQueryTest5.do',
+				data: {userNo:userNo},
+				success:function(data){
+					console.log(data);
+					
+					var resultStr ="";
+					
+					if(data != null){
+						resultStr = data.userNo + ", " + data.userName + ", " + data.userNation;
+					} else {
+						resultStr ="해당 회원이 없습니다.";
+					}
+					
+					$('#p3').text(resultStr);
+					$('#textarea3').val(resultStr);
+					
+					
+				}
+			});
+		});
+	</script>
+	
+	<h3>6. 서버로 기본 값 전송, 서버에서 리스트 객체 반환</h3>
+	<h4>유저 번호 요청 --> 해당 유저가 있는 경우 유저 정보, 없는 경우 전체 가져오기</h4>
+	유저 번호 : <input type="text" id="userNo2">
+	<button id="getUserInfoBtn2">정보 가져오기</button>
+	<p class="test" id="p4"></p>
+	<script>
+	$('#getUserInfoBtn2').click(function(){
+		var userNo = $('#userNo2').val();
+		
+		$.ajax({
+			url:'jQueryTest6.do',
+			data : {userNo:userNo},
+			success:function(data){
+				console.log(data);
+				
+				var resultStr = "";
+				for(var i in data){
+					var user = data[i];
+					console.log(user);
+					
+					resultStr += user.userNo + ", " + user.userName + ", " + user.userNation + "<br>";
+				}
+				$('#p4').text(resultStr);
+			}
+		});
+		
+	});
+	
+	</script>
+	
+	<h3>7. 서버로 데이터 여러 개 전송, 서버에서 리트트 객체 반환</h3>
+	<h4>유저 번호 전송 --> 현재 있는 유저 정보만 모아서 출력</h4>
+	<h4>10이상의 숫자는 ','로 쓸 수 없다고 가정</h4>
+	유저 정보(번호,번호,번호) : <input type="text" id="userNo3"><br>
+	<button id="getUserInfoBtn3">정보 가져오기</button>
+	<textarea class="test" id="textarea5" cols=40 rows=5></textarea>
+	<script>
+		$('#getUserInfoBtn3').click(function(){
+			$.ajax({
+				url:'jQueryTest7.do',
+				data : {userNo:$('#userNo3').val()},
+				success : function(data){
+					console.log(data);
+				}
+			});
+		});
+	</script>
+	
+	<h3>8. 서버로 데이터 여러 개 전송, 서버에서 맵 형태의 객체 반환</h3>
+	<h4>유저 이름 전송 --> 현재 있는 유저 정보만 모아서 출력</h4>
+	유저 정보(이름,이름,이름) : <input type="text" id ="userName"><br>
+	<button id="getUserInfoBtn4">정보 가져오기</button>
+	<textarea id="textarea6" class="test" cols=40 rows=5></textarea>
+	<script>
+		$('#getUserInfoBtn4').click(function(){
+			$.ajax({
+				url: 'jQueryTest8.do',
+				date: {userName:$('#userName').val()},
+				success: function(data){
+					console.log(data);
+					
+					var resultStr = "";
+					
+					for(var key in data){
+						console.log(key);
+						var user = data[key];
+					}
+					
+				/*	for(var i in data){
+						var user = data[i];
+						console.log(user); */
+						
+						resultStr += user.userNo + ", " 
+								  + user.userName + ", " 
+								  + user.userNation + "\n";
+					}
+					
+					$('#textarea6').val(resultStr);
+				}
+			});
+		});
+	
+	</script>
+	
+	<h3>9. 서버 유저 정보로 표 구성하기</h3>
+	<button id="userInfoBtn">유저 정보 불러오기</button>
+	<table id="userInfoTable" border ="1">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>국적</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	<script>
+		$('#userInfoBtn').click(function(){
+			$.ajax({
+				url: 'jQueryTest9.do',
+				success: function(data){
+					console.log(data);
+					
+					$tableBody = $('#userInfoTable tbody');
+					$tableBody.html("");
+					
+					for(var i in data){
+						var $tr = $("<tr>");
+						
+						var $noTd = $("<td>").text(data[i].userNo);
+						var $nameTd = $("<td>").text(data[i].userName);
+						var $nationTd = $("<td>").text(data[i].userNation);
+						
+						$tr.append($noTd);
+						$tr.append($nameTd);
+						$tr.append($nationTd);
+						
+						$tableBody.append($tr);
+						
+						
+					}
+					
+				}
+			})
+		});
+	
+	</script>
+	
+	<h3>10. 서버에서 List 객체 반환 받아 select 태그를 이용해서 보여줌</h3>
+	유저 이름 : <input type="text" id="selectUserName">
+	<button id="selectListBtn">예제</button>
+	<select id="selectListTest"></select>
+	<script>
+		$('#selectListBtn').click(function(){
+			$.ajax({
+				url : 'jQueryTest10.do',
+				success: function(data){
+					console.log(data);
+					$select = $("#selectListTest");
+					$select.find('option').remove();
+					
+					for(var i = 0; i < data.length; i++){
+						var name = data[i].userName;
+						var selected = (name == $('#selectUserName').val()) ? 'selected' : '';
+						
+						$select.append('<option value="' + data[i].userNo + '"' + selected + ">" + name + "</option>");
+						// <option value = "1" selected>박신우</option>
+						
+					}
+					
+				}
+			});
+		});
+	</script>
+	
+	<h3>11. Gson을 이용한 List반환</h3>
+	<button id="gsonList">list 가져오기</button>
+	<select id="gsonListSelect"></select>
+	<script>
+		$("#gsonList").click(function({
+			$.ajax({
+				url: 'jQueryTest11.do',
+				success: function(data){
+					console.log('gson 사용');
+					console.log(data);
+					
+					$select = $('#gsonListSelect');
+					$select.find('option').remove();
+					
+					for(var i in data){
+						var $option = $('<option>');
+						$option.val(data[i].userNo);
+						$option.text(data[i].userName);
+						$select.append($option);
+					}
+				}
+			});
+		});
+	</script>
+	
+	<h3>12. Gson을 이용한 Map반환</h3>
+	<button id="gsonMapBtn">Map 가져오기</button>
+	<select id="gsonMapSelect"></select>
+	<script>
+		$('#gsonMapBtn').click(function(){
+			$.ajax({
+				url: 'jQueryTest12.do',
+				success: function(data){
+					$select = $('#gsonMapSelect');
+					$select.find('option').remove();
+					
+					for(var i in data){
+						var $option = $('<option>');
+						$option.val(data[i].userNo);
+						$option.text(data[i].userName);
+						$select.append($option);
+					}
+				}
+				
+			});
+		});
+	</script>
+	
 </body>
 </html>
 
