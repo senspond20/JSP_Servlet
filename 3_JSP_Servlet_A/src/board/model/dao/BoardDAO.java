@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Reply;
 
 public class BoardDAO {
 	
@@ -326,6 +327,39 @@ public class BoardDAO {
 			close(rset);
 			close(pstmt);
 		}
+		
+		return list;
+	}
+
+	public ArrayList<Reply> selectReplyList(Connection conn, int bid) {
+		// select * from reply where ref_bid=?
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Reply> list = null;
+		
+		String query = prop.getProperty("selectReplyList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			rs = pstmt.executeQuery();
+			
+			list = new ArrayList<Reply>();
+			while(rs.next()) {
+				list.add(new Reply(rs.getInt("rid"),
+								   rs.getString("rcontent"),
+								   rs.getInt("ref bid"),
+								   rs.getString("nickname"),
+								   rs.getDate("create_date"),
+								   rs.getDate("modify_date"),
+								   rs.getString("status")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		} 
 		
 		return list;
 	}

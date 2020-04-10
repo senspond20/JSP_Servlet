@@ -18,7 +18,6 @@
 	#joinBtn {background: #D1B2FF; color: white;}
 	#joinBtn, #goMain {display:inline-block;}
 	label.must{color: red; font-weight: bold;}
-	
 </style>
 <title>Insert title here</title>
 </head>
@@ -29,12 +28,13 @@
 		<br>
 		<h2 align="center">회원가입</h2>
 		
-		<form action="<%= request.getContextPath() %>/insert.me" method="post" id="joinForm" name="joinForm">
+		<form action="<%= request.getContextPath() %>/insert.me" method="post" id="joinForm" name="joinForm" onsubmit="return validate();">
 			<table>
 				<tr>
 					<td width="200px"><label class="must">*</label> 아이디</td>
-					<td><input type="text" maxlength="13" name="joinUserId" required></td>
-					<td width="200px"><div id="idCheck" onclick="checkId();">중복확인</div></td>
+					<td><input type="text" maxlength="13" name="joinUserId" required id="joinUserId"></td>
+				<!-- <td width="200px"><div id="idCheck" onclick="checkId();">중복확인</div></td>-->
+					<td width="200px"><label id ='idResult'></label></td>
 				</tr>
 				<tr>
 					<td><label class="must">*</label> 비밀번호</td>
@@ -98,10 +98,52 @@
 	</div>
 	
 	<script>
-		function checkId(){
+		/*function checkId(){
 			window.open('idCheckForm.jsp', 'checkForm', 'width=500, height=300');
-		}
+		}*/
 		
+		var isUsable = false;	//아이디 중속 시 false, 사용 가능 시 true
+		var isIdChecked = false; //아이디 중복확인을 했는지 안했는지 검사
+		
+		$("#joinUserId").on('change paste keyup', function(){
+			isIdChecked = false;
+		});
+		$('#joinUserId').change(function(){
+			var userId = $('#joinUserId');
+			
+			if(!userId || userId.val().length < 4){
+				alert('아이디는 최소 4자리 이상이어야 합니다.');
+				userId.focues();
+			}else{
+				$.ajax({
+					url: '<%= request.getContextPath() %>/idCheck.me',
+					data: {userId:userId.val()},
+					success: function(data){
+						if(data == "success"){
+							$('#idResult').text('사용 가능합니다.');
+							$('#idResult').css({'color':'green', 'float':'left','display':'inline-block'});
+							isUsable = true;
+							isIdChecked = true;
+						}else{
+							$('#idResult').text('사용 불가능합니다.');
+							$('#idResult').css({'color':'red', 'float':'left','display':'inline-block'});
+							isUsable = false;
+							isIdChecked = false;
+						}
+					}
+				});
+			}
+		});
+		
+		function validate(){
+			if(isUsable && isIdChecked){
+				return true;
+			}else{
+				alert('아이디 중복확인 가능합니다.');
+				return false;
+			}
+		}
 	</script>
+		
 </body>
 </html>

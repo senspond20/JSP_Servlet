@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Reply;
 
 public class BoardDAO {
 	private Properties prop = new Properties();
@@ -353,5 +354,32 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int inserReply(Connection conn, Reply r) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertReply");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, r.getrContent());
+			pstmt.setInt(2, r.getRefBid());
+			pstmt.setString(3, r.getrWriter());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+	
+		return result;
+	}
+
+	public ArrayList<Reply> selectReplyList(Connection conn, int refBid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="board.model.vo.*, java.util.ArrayList"%>
-<% Board b = (Board)request.getAttribute("board"); %>
+<% Board b = (Board)request.getAttribute("board");
+   ArrayList<Reply> list = (ArrayList<Reply>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +15,10 @@
 	}
 	.tableArea {width: 450px; height:350px; margin-left:auto; margin-right:auto; align: center;}
 	table{align: center;}
-	#updateBtn, #menuBtn, #deleteBtn{background: #B2CCFF; color: white; border-radius: 15px; width: 80px; heigth: 25px; text-align:center; display: inline-block;}
+	#updateBtn, #menuBtn, #deleteBtn, #addReply {background: #B2CCFF; color: white; border-radius: 15px; width: 80px; heigth: 25px; text-align:center; display: inline-block;}
 	#menuBtn{background: #D1B2FF;}
 	#deleteBtn{background: #D5D5D5;}
-	#updateBtn:hover, #menuBtn:hover, #deleteBtn:hover{cursor: pointer;}
+	#updateBtn:hover, #menuBtn:hover, #deleteBtn:hover, #addReply:hover{cursor: pointer;}
 </style>
 </head>
 <body>
@@ -83,6 +85,72 @@
 				}
 			</script>
 		</div>
+	
+	<div class ="replyArea">
+		<div class ="replyWriterArea">
+			<table>
+				<tr>
+					<td>댓글 작성</td>
+					<td><textarea rows="3" cols="80" id="replyContent" style="resize:none;"></textarea></td>
+					<td><button id="addReply">댓글 등록</button>
+				</tr>
+			</table>
+		</div>
+		<div id="replySelectArea">
+			<table id="replySelectTable">
+				<% if(list.isEmpty()) { %>
+					<tr><td colspan =3>댓글이 없습니다.</td></tr>
+				<% } else { %>
+					<% for(int i =0; i < list.size(); i++){ %>
+					<tr>
+						<td width ="100px"><%= list.get(i).getrWriter()%> </td>
+						<td width ="400px"><%= list.get(i).getrContent() %> </td>
+						<td width ="200px"><%= list.get(i).getCreateDate()%> </td>	
+					</tr>
+					<% } %>
+				<% } %>
+			</table>
+		</div>
 	</div>
+	
+	<script>
+		$('#addReply').click(function(){
+			var writer = '<%= loginUser.getUserId() %>';
+			var bid = <%= b.getbId() %>;
+			var content = $('#replyContent').val();
+			
+			$.ajax({
+				url: 'insertReply.bo',
+				data: {writer:writer, content:content, bid:bid},
+				success: function(data){
+					$replyTable = $('#replySelectTable');
+					$replyTable.html("");
+					
+					for(var key in data){
+						var $tr = $('<tr>');
+						var $writerTd = $('<td>').text(data[key].rWriter).css('width','100px');
+						var $contentTd = $('<td>').text(data[key].rContent).css('width','400px');
+						var $dataTd = $('<td>').text(data[key.createDate]).css('width','200px');
+						
+						$tr.append($writerTd);
+						$tr.append($contentTd);
+						$tr.append($dateTd);
+						$replyTable.append($tr);
+					}
+					$('#replyContent').val("");
+				
+					
+					// 다르기 때문에 새로고침을 했을때 일치하지 않는 날짜 형식
+					
+				}
+			});
+		});
+	</script>
+	
+	
+	
+	</div>
+	
+	
 </body>
 </html>
