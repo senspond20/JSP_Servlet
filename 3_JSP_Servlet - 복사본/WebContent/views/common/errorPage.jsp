@@ -7,10 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script>
-		location.href ="views/papingAjax.jsp"
+	<% String msg = (String) request.getAttribute("msg"); %>
+	<h1 align = "center"><%= msg %></h1>
 	
-	</script>
-
 </body>
 </html>

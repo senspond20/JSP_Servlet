@@ -7,10 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script>
-		location.href ="views/papingAjax.jsp"
-	
-	</script>
+	<%@ include file ="../views/common/menubar.jsp" %>
 
 </body>
 </html>

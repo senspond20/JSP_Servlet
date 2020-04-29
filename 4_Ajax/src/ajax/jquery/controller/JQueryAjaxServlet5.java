@@ -65,15 +65,14 @@ public class JQueryAjaxServlet5 extends HttpServlet {
 		
 		System.out.println(userObj);
 		
-		
 		//JSON은 contentType 따로 지정 해줘야함
 		response.setContentType("application/json; charset=UTF-8");
 		
 		PrintWriter out = response.getWriter();
 		out.println(userObj);
+		
 		out.flush();
 		out.close();
-		
 		
 	}
 
